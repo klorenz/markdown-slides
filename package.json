@@ -1,7 +1,7 @@
 {
-  "name": "my-mw-slides",
-  "version": "1.0.0",
-  "description": "World",
+  "name": "markdown-slides",
+  "version": "0.0.0",
+  "description": "Create great slides with markdown (uses vegetables)",
   "main": "filter.js",
   "dependencies": {
     "graphviz2svg": "^0.1.2",
