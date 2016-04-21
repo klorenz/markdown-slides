@@ -1,0 +1,7 @@
+tags:
+  globalTitle: slides
+  ratio: '16:9'
+  highlightStyle: tomorrow-night
+
+filterMarkdown:
+  - module: ./filter.js

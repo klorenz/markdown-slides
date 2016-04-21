@@ -1,0 +1,26 @@
+{
+  "name": "markdown-slides",
+  "authors": [
+    "Kay-Uwe (Kiwi) Lorenz <kiwi@franka.dyndns.org>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "slides",
+    "vegetables",
+    "markdown"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/klorenz/markdown-slides",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "MathJax": "~2.6.1"
+  }
+}
