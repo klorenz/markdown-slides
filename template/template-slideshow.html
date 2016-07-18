@@ -3,8 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{title}}</title>
+    {{#if slideshowCssPreload}}
+    	<link rel="stylesheet" href="{{{baseUri}}}{{{slideshowCssPreload}}}">
+    {{/if}}
+
     <link rel="stylesheet" href="{{{baseUri}}}assets/css/slideshow.css">
+    <title>{{title}}</title>
+    {{#if slideshowCss}}
+    	<link rel="stylesheet" href="{{{baseUri}}}{{{slideshowCss}}}">
+    {{/if}}
+
+
+    <link rel="stylesheet" href="{{{baseUri}}}assets/css/mermaid.css">
+    <script src="{{{baseUri}}}assets/js/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:false});</script>
     <style>
     .mermaid {
       display: none;
@@ -12,20 +24,7 @@
     .mermaid-display {
       font-size: 0.5em;
     }
-    .remark-content {
-      font-size: 1.3em;
-    }
-    .remark-slide-content {
-      background-image: url(data:image/png;base64,{{logoBase64}});
-      background-position: 50% 98%;
-      font-size: 200%;
-    }
-
     </style>
-
-    <link rel="stylesheet" href="{{{baseUri}}}assets/css/mermaid.css">
-    <script src="{{{baseUri}}}assets/js/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:false});</script>
   </head>
   <body>
     <textarea id="source">{{{slideMarkdown}}}</textarea>

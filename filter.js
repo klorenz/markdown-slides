@@ -9,7 +9,7 @@ module.exports = function(data) {
   var content = data.content;
   var config  = data.config;
 
-  if (data.stage === 'markdown') {
+  if (data.stage === 'filterMarkdown') {
     var re_template = /\n([ \t]*)(\\?)(<HANDLER\s*([^>]*)>([\s\S]*?[^\\])<\/HANDLER>)/;
     var re_esc_template = /\\(<\/?HANDLER>)/;
 
@@ -38,5 +38,9 @@ module.exports = function(data) {
     }
   }
 
-  return content;
+  if (content) {
+    return content
+  } else {
+    return true
+  }
 }

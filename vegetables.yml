@@ -1,7 +1,14 @@
 tags:
   globalTitle: slides
-  ratio: '16:9'
-  highlightStyle: tomorrow-night
 
-filterMarkdown:
-  - module: ./filter.js
+  remarkRatio: '16:9'
+  remarkHighlightStyle: tomorrow-night
+  remarkHighlightLanguage: '-'
+  remarkHighlightLines: true
+  remarkHighlightSpans: false
+
+  slidesHead: ''
+  slidesJavaScript: ''
+  slidesStyle: ''
+
+hooks: ./filter.js

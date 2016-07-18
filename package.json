@@ -3,10 +3,16 @@
   "version": "0.0.1",
   "description": "Create great slides with markdown (uses vegetables)",
   "main": "filter.js",
+  "bin": {
+    "markdown-slides": "./bin/markdown-slides.js"
+  },
   "dependencies": {
     "graphviz2svg": "^0.1.2",
-    "pic2svg": "^0.1.1",
-    "vegetables": "https://github.com/klorenz/vegetables.git"
+    "open": "0.0.5",
+    "package": "^1.0",
+    "pic2svg": "^0.1",
+    "spiced-vegetables": "^1",
+    "yargs": "^4.6.0"
   },
   "devDependencies": {
     "mermaid": "^0.5.8",
@@ -24,7 +30,7 @@
     "markdown",
     "slides"
   ],
-  "author": "me",
+  "author": "Kay-Uwe (Kiwi) Lorenz <kiwi@franka.dyndns.org>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/klorenz/markdown-slides/issues"
