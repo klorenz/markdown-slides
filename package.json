@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "graphviz2svg": "^0.1.2",
+    "js-yaml": "^3.6.1",
+    "node-plantuml": "^0.4.4",
     "open": "0.0.5",
     "package": "^1.0",
     "pic2svg": "^0.1",

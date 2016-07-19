@@ -1,8 +1,19 @@
 graphviz = require('graphviz2svg')
 pic2svg = require('pic2svg').pic2svg
+plantuml = require('node-plantuml')
 
 mermaid = function(source, config) {
   return source;
+}
+
+uml2svg = function(source, config) {
+  plantuml = spawnSync("plantuml", ['-pipe', '-tsvg'], {'input': source});
+  if (plantuml.error) {
+    if (plantuml.error.errno === 'ENOENT') {
+      throw new Error("You have to install plantuml: http://plantuml.com/")
+    }
+  }
+  return result.stdout;
 }
 
 module.exports = function(data) {
@@ -17,7 +28,8 @@ module.exports = function(data) {
       'graph': graphviz.graph2svg,
       'digraph': graphviz.digraph2svg,
       'mermaid': mermaid,
-      'pic': pic2svg
+      'pic': pic2svg,
+      'puml': uml2svg
     }
 
     for (handler in preprocessors) {

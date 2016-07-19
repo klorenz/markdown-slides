@@ -31,6 +31,11 @@
 			}
 
 		</style>
+
+		{{#each stylesheets}}
+			<link rel="stylesheet" href="{{{baseUri}}}{{{stylesheet}}}">
+		{{/each}}
+
 	</head>
 	<body>
 		<header class="navbar navbar-default navbar-fixed-top">

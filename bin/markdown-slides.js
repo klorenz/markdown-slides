@@ -10,6 +10,20 @@ function dedent(input){
   return output.replace(new RegExp(`^${indent}`, 'gm'), '')
 }
 
+function getConfigFile(dir) {
+  var localYConfigFile = path.resolve(dir, 'vegetables.yml')
+  var localJConfigFile = path.resolve(dir, 'vegetables.json')
+
+  if (!myConfig) {
+    if (fs.existsSync(localYConfigFile)) {
+      return localYConfigFile
+    } else if (fs.existsSync(localJConfigFile)) {
+      return localJConfigFile
+    }
+  }
+  throw new Error("no configfile found in "+dir)
+}
+
 var yargs = require('yargs')
   .usage(`${pkg.name} [options] <command>`)
   .command('show', dedent(`
@@ -19,7 +33,7 @@ var yargs = require('yargs')
   .string('_')
   .describe({
   	'globaltitle': 'Generated Web site title',
-  	'template': 'Path to the template',
+  	'theme': 'Path to the template or name of template package',
   	'host': 'Host for the serve command. Set to * to allow access from your local network',
   	'port': 'Access port. Default: 8888',
   	'help': 'This screen',
@@ -48,22 +62,59 @@ if (!argv._.length) {
 }
 
 var myConfig = argv.config;
-argv.config = path.resolve(__dirname, 'vegetables.yml')
+
+if (!myConfig) {
+  try {
+    myConfig = getConfigFile('.')
+  } catch (e) {
+  }
+}
+
+// this config
+argv.config = path.resolve(__dirname, '..', 'vegetables.yml')
 
 // read default config
 var config = veggy.readConfig(argv)
+
 argv.config = config
+
+if (argv.theme) {
+  var themePath;
+  try {
+    themePath = path.resolve(require.resolve(argv.theme), '..')
+  }
+  catch (e) {
+    themePath = path.resolve(argv.theme)
+  }
+  try {
+    var configFile = getConfigFile(themePath)
+    config.update(configFile)
+  }
+  catch (e) {
+    console.log(e)
+  }
+  var templatePath = path.resolve(themePath, 'template')
+  if (fs.existsSync(templatePath)) {
+    config.update({template: templatePath})
+  }
+}
 
 // update config with user config
 if (myConfig) {
   config.update(myConfig)
 }
 
+config.template.reverse()
+
+
 // show the web pages (with slides)
 if (argv._[0] === 'show') {
   argv.config = config
   veggy.serve(argv, config)
   require('open')(`http://${config.host}:${config.port}/`)
+} else if (argv._[0] === 'show-config') {
+  var yaml = require('js-yaml')
+  console.log(yaml.dump(config, {flowLevel: 3}))
 
 } else if (argv.help){
   console.log(yargs.help())
