@@ -110,6 +110,7 @@ config.template.reverse()
 // show the web pages (with slides)
 if (argv._[0] === 'show') {
   argv.config = config
+  config.mode = 'serve'
   veggy.serve(argv, config)
   require('open')(`http://${config.host}:${config.port}/`)
 } else if (argv._[0] === 'show-config') {
