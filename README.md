@@ -20,7 +20,14 @@ You can show your slides running
 $ markdown-slides show
 ```
 
-## 
+## Customizing
+
+You can customzie your slides ...
+
+Themes ...
+
+
+## First Slides
 
 
 ```markdown
@@ -32,28 +39,91 @@ Markdown Slides lets you manage a set of slides and show it.
 ... created the first slide
 
 
+## Graphics Support
 
-## 
+Markdown Slides supports following graphics:
 
-This package is
+- GraphViz
+- GNU PIC
+- Mermaid
+- PlantUML
 
-## Hello 2
+### GraphViz Directed Graph
 
-foo
+```
+\\<digraph>
+rankdir=LR
+A -> B
+B -> C
+C -> D
+D -> B
+\\</digraph>
+```
 
-## Hello x
+<digraph>
+rankdir=LR
+A -> B
+B -> C
+C -> D
+D -> B
+</digraph>
+
+### GraphViz Graph
+
+```
+\\<graph>
+rankdir=LR
+A -- B
+B -- C
+C -- D
+D -- B
+\\</graph>
+```
+
+<graph>
+rankdir=LR
+A -- B
+B -- C
+C -- D
+D -- B
+</graph>
+
+### GNU Pic
+
+```
+\\<pic>
+box "Hello World" ; arrow ; circle
+\\</pic>
+```
 
 <pic>
-box "Hello World"
+box "Hello World" ; arrow ; circle
 </pic>
 
-<mermaid>
-graph LR
+### Mermaid
+
+```
+\\<mermaid>
+graph TD
   A --> B
-  C --> D
-  B --> C
+\\</mermaid>
+```
+
+
+<mermaid>
+graph TD
+  A --> B
 </mermaid>
 
-## Hello 4
+### Plantuml
 
-## Hello 5
+```
+\\<puml>
+  Alice -> Bob : Hello
+\\</puml>
+```
+<puml>
+  Alice -> Bob : Hello
+</puml>
+
+

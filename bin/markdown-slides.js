@@ -52,7 +52,7 @@ var yargs = require('yargs')
   	'config': '' // should not begin with .
   });
 
-var veggy = require('vegetables')
+var veggy = require('spiced-vegetables')
 var argv = yargs.argv
 
 // show help if no command given
@@ -78,6 +78,8 @@ var config = veggy.readConfig(argv)
 
 argv.config = config
 
+console.log("argv", argv)
+
 if (argv.theme) {
   var themePath;
   try {
@@ -88,6 +90,7 @@ if (argv.theme) {
   }
   try {
     var configFile = getConfigFile(themePath)
+    console.log("config from theme", configFile)
     config.update(configFile)
   }
   catch (e) {
@@ -95,6 +98,7 @@ if (argv.theme) {
   }
   var templatePath = path.resolve(themePath, 'template')
   if (fs.existsSync(templatePath)) {
+    console.log("add template path from theme",templatePath)
     config.update({template: templatePath})
   }
 }

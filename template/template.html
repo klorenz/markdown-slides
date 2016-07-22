@@ -5,9 +5,15 @@
 		<title>{{title}} - {{globalTitle}}</title>
 
 		<link rel="stylesheet" href="{{{baseUri}}}assets/css/mermaid.css">
-    <script src="{{{baseUri}}}assets/js/mermaid.min.js"></script>
+    <script src="{{{baseUri}}}assets/js/mermaid.js"></script>
     <script>mermaid.initialize({
 			startOnLoad: false,
+			gantt: {
+          "fontSize": 16,
+          "useWidth": 1200
+					"sidePadding": 200
+          // "barHeight": 40
+        }
 		});</script>
 
 		<link rel="stylesheet" href="{{{baseUri}}}assets/css/highlight.min.css">
@@ -30,10 +36,34 @@
 				min-width: 50%;
 			}
 
+			.mermaid svg {
+				max-width: 100%;
+			}
+
+			svg .titleText {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    svg .taskText {
+      font-size: 16px;
+    }
+
+    svg .sectionTitle {
+      font-size: 16px;
+    }
+
+    svg .taskTextOutsideRight, svg .taskTextOutsideLeft {
+      font-size: 16px;
+    }
+
+    svg .tick text {
+      font-size: 14px;
+    }
+
 		</style>
 
 		{{#each stylesheets}}
-			<link rel="stylesheet" href="{{{baseUri}}}{{{stylesheet}}}">
+			<link rel="stylesheet" href="{{{../baseUri}}}{{{stylesheet}}}">
 		{{/each}}
 
 	</head>
@@ -144,18 +174,24 @@ Document informations:<br>
 			var mermaids = document.querySelectorAll('.mermaid');
 			console.log(mermaids);
  			function _svgReplacement(match, code){
-			  return code.replace(/(view[bB]ox="\d+\s+\d+\s+(\d+)\s+(\d+)")/, 
-				function(m, vb, w, h){ 
-					return vb+' width="'+ w + 'pt" height="'+h+'pt"'; 
+			  return code.replace(/(view[bB]ox="\d+\s+\d+\s+(\d+)\s+(\d+)")/,
+				function(m, vb, w, h){
+					return vb+' width="'+ w + 'pt" height="'+h+'pt"';
 				});
                         }
 
 			for (var i = 0; i < mermaids.length; i++) {
 				var elem = mermaids[i];
-				mermaidAPI.render('mermaid-graph-'+i, elem.textContent, function(html) {
-					elem.innerHTML = html
-						.replace(/(<svg[^>]*)height="[^"]*"\s*/, _svgReplacement)
-						.replace(/(<svg[^>]*)style="[^"]*"\s*/, function(match, code) { return code; });
+				mermaidAPI.render('mermaid-graph-'+i, elem.textContent.trim(), function(html) {
+					var innerHTML = html
+						.replace(/(<svg[^>]*)height="[^"]*"\s*/, function(match, code) { return code; })
+						.replace(/(<svg[^>]*)width="[^"]*"\s*/, function(match, code) { return code; })
+						.replace(/(<svg[^>]*)style="[^"]*"\s*/, function(match, code) { return code; })
+						.replace(/(<svg[^>]*view[bB]ox="\d+\s+\d+\s+(\d+)\s+(\d+)")/, function(m, vb, w, h) {
+                                                    return vb + ' width="' + w + 'pt" height="' + h + 'pt"';
+                                                });
+                                       console.log("innerHTML", innerHTML);
+                                       elem.innerHTML = innerHTML;
 				});
 			}
 		</script>

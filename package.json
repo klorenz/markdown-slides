@@ -17,7 +17,7 @@
     "yargs": "^4.6.0"
   },
   "devDependencies": {
-    "mermaid": "^0.5.8",
+    "mermaid": "^0",
     "mathjax": "^2.6.1"
   },
   "scripts": {

@@ -11,10 +11,20 @@
     <link rel="stylesheet" href="{{{baseUri}}}assets/css/slideshow.css">
     <title>{{title}}</title>
 
-
     <link rel="stylesheet" href="{{{baseUri}}}assets/css/mermaid.css">
-    <script src="{{{baseUri}}}assets/js/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:false});</script>
+    <script src="{{{baseUri}}}assets/js/mermaid.js"></script>
+    <script>
+      mermaid.initialize({
+        startOnLoad: false,
+        gantt: {
+          "fontSize": 30,
+          "useWidth": 1200,
+          "barHeight": 40,
+          "sidePadding": 200
+        }
+      });
+
+    </script>
     <style>
     .mermaid {
       display: none;
@@ -22,9 +32,33 @@
     .mermaid-display {
       font-size: 0.5em;
     }
+    .mermaid-display svg {
+				max-width: 100%;
+		}
+
+    svg .titleText {
+      font-size: 25px;
+      font-weight: bold;
+    }
+    svg .taskText {
+      font-size: 30px;
+    }
+
+    svg .sectionTitle {
+      font-size: 30px;
+    }
+
+    svg .tick text {
+      font-size: 18px;
+    }
+
+    svg .taskTextOutsideRight, svg .taskTextOutsideLeft {
+      font-size: 25px;
+    }
+
     </style>
     {{#each stylesheets}}
-       <link rel="stylesheet" href="{{{baseUri}}}{{stylesheet}}">
+       <link rel="stylesheet" href="{{{../baseUri}}}{{{stylesheet}}}">
     {{/each}}
 
     {{#if slideshowCss}}
@@ -37,7 +71,6 @@
     <script src="{{{baseUri}}}assets/js/remark.min.js"></script>
     <script>
       window.my_slideshow_mermaid_counter = 0;
-
       function displayMermaidDiagram() {
         var currentSlide = document.querySelector('.remark-visible')
         console.log("currentSlide", currentSlide)
@@ -53,7 +86,7 @@
           }
           mermaidAPI.render(
             'mermaid-figure-'+(my_slideshow_mermaid_counter++),
-            elem.textContent,
+            elem.textContent.trim(),
             function(html) {
               var div = document.createElement('div');
               div.classList.add('mermaid-display');
